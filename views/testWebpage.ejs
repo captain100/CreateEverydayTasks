@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>Admin Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+
+</nav>
+<div class="col-sm-2">
+    <ul class="nav nav-pills nav-stacked">
+        <li ><a href="http://1.93.129.65:8080/dashboard">管理员</a></li>
+        <li ><a href="http://1.93.129.65:8080/showadmin">管理员列表</a></li>
+        <li ><a href="http://1.93.129.65:8080/showstar">明星列表</a></li>
+        <li ><a href="http://1.93.129.65:8080/showitem">物品列表</a></li>
+        <li ><a href="http://1.93.129.65:8080/shownpc">NPC列表</a></li>
+        <li ><a href="http://1.93.129.65:8080/startask">明星任务</a></li>
+        <li ><a href="http://1.93.129.65:8080/everytask">每日任务</a></li>
+        <li ><a href="http://1.93.129.65:8080/advertisement">广告</a></li>
+        <li class="active"><a href="/showtasks">显示任务列表</a></li>
+    </ul>
+</div>
+<div class="col-sm-offset-1 col-sm-7">
+    <div class="well">
+        <h1>每日任务列表</h1>
+
+        <table class="table table-hover">
+            <tr>
+                <th>任务标题</th>
+                <th>任务地点</th>
+                <th>任务内容</th>
+                <th>任务时长</th>
+                <th>奖励好感度</th>
+                <th>奖励金钱</th>
+
+
+
+            </tr>
+
+            <%for(var i=0 ; i<list.length-1;i++){%>
+
+            <tr>
+                <td><%=list[i].everydayTask.taskTitle%></td>
+                <td><%=list[i].everydayTask.rolename%></td>
+                <td><%=list[i].everydayTask.description%></td>
+                <td><%=list[i].everydayTask.duration%></td>
+                <td><%=list[i].everydayTask.award%></td>
+                <td><%=list[i].everydayTask.money%></td>
+
+
+
+
+            </tr>
+        <%}%>
+            <tr>
+                <td colspan="6"></td>
+            </tr>
+        </table>
+
+
+        <h1>已添加的系统通告</h1>
+        <table class=" table">
+            <tr>
+                <th>标题</th>
+                <th>类型</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+            <%if(list_system!=[]){%>
+                <%for(var i=0;i<list_system.length;i++){%>
+                <% if(i%2==0){%>
+                <tr>
+                    <td><%=list_system[i].advertisement.title%></td>
+                    <td><%=list_system[i].advertisement.radioButton%></td>
+                    <td><%=list_system[i].advertisement.description%></td>
+                    <td><a href="/delsystem?i=<%=i%>" class="btn btn-danger">删除</a></td>
+                </tr>
+                <%}%>
+                <%}%>
+            <%}%>
+
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+
+
+        </table>
+
+        <h3>添加系统通告</h3>
+        <form action="/addSystem" method="post">
+            <select class="form-control" name="systeminfo">
+                <%for(var i=0;i<selectsystem.length;i++){%>
+                <option value="<%=i %>" > <%=selectsystem[i].advertisement.title%></option>
+                <%}%>
+            </select>
+            <input type="submit" value="添加系统通告" class=" btn btn-success">
+            <a href="/clearSystem" class="btn">清空系统通告</a>
+        </form>
+
+
+
+
+
+
+        <h1>已添加广告信息</h1>
+        <table class="table">
+            <tr>
+                <th>标题</th>
+                <th>类型</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+            <%if(list_ad!=[]){%>
+
+                <%for(var i=0;i<list_ad.length;i++){%>
+                 <%if(i%2 == 0 ){%>
+                    <tr>
+                        <td><%=list_ad[i].advertisement.title%></td>
+                        <td><%=list_ad[i].advertisement.radioButton%></td>
+                        <td><%=list_ad[i].advertisement.description%></td>
+                        <td><a href="/delad?i=<%=i%>" class="btn btn-danger">删除</a></td>
+
+                    </tr>
+                <%}%>
+                <%}%>
+            <%}%>
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+
+        </table>
+        <h3>添加广告信息</h3>
+        <form action="/addAD" method="post">
+            <select class="form-control" name="advertisment" >
+
+                <%for(var i=0;i<selectad.length;i++){%>
+                <option value="<%=i %>" > <%=selectad[i].advertisement.title%></option>
+                <%}%>
+
+            </select>
+            <input class=" btn btn-success" value="添加广告" type="submit">
+            <a href="/clearAD" class="btn">清空广告信息</a>
+        </form>
+
+    </div>
+</div>
+
+<script src="http://cdn.bootcss.com/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="http://markusslima.github.io/bootstrap-filestyle/js/bootstrap-filestyle.min.js"></script>
+</body>
+</html>
